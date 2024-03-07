@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+#include <map>
+
+// NFT structure
+struct NFT {
+    uint64_t tokenId;
+    std::string metadataURI;
+    bool isMinted;
+    uint64_t price;  // Price in SUI tokens
+    bool isForSale;
+
+    // Additional attributes based on your project's requirements
+    // ...
+
+    // Constructor
+    NFT(uint64_t id, const std::string& uri) : tokenId(id), metadataURI(uri), isMinted(false), price(0), isForSale(false) {}
+};
+
+// CollectionManager class
+class CollectionManager {
+private:
+    std::vector<NFT> nfts;
+    std::map<uint64_t, uint64_t> sales;  // tokenId to profit mapping
+
+public:
+    // Mint a new token
+    void mintNFT(uint64_t tokenId, const std::string& metadataURI) {
+        NFT newNFT(tokenId, metadataURI);
+        nfts.push_back(newNFT);
+        std::cout << "NFT #" << tokenId << " minted successfully!" << std::endl;
+    }
+
+    // Combine two NFTs into a new one
+    void combineNFTs(uint64_t tokenId1, uint64_t tokenId2) {
+        // Check if the provided tokens exist in the collection
+        auto it1 = std::find_if(nfts.begin(), nfts.end(), [tokenId1](const NFT& nft) { return nft.tokenId == tokenId1; });
+        auto it2 = std::find_if(nfts.begin(), nfts.end(), [tokenId2](const NFT& nft) { return nft.tokenId == tokenId2; });
+
+        if (it1 != nfts.end() && it2 != nfts.end()) {
+            // Combine logic goes here
+            // ...
+
+            std::cout << "NFTs #" << tokenId1 << " and #" << tokenId2 << " combined successfully!" << std::endl;
+        } else {
+            std::cout << "One or both of the specified NFTs do not exist in the collection." << std::endl;
+        }
+    }
+
+    // Withdraw profit from token sales
+    void withdrawSales() {
+        // Withdraw logic goes here
+        // ...
+
+        std::cout << "Sales profit withdrawn successfully!" << std::endl;
+    }
+};
